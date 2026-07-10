@@ -25,13 +25,25 @@ document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(a => {
 
 // Theme Toggle
 const themeToggle = document.getElementById('theme-toggle');
+
+// Check local storage for theme, default to light
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'dark') {
+  document.documentElement.classList.add('dark-mode');
+} else {
+  // If no saved theme or saved theme is light, ensure dark-mode is removed (Light mode is default)
+  document.documentElement.classList.remove('dark-mode');
+}
+
 function applyThemeIcons() {
   const isDark = document.documentElement.classList.contains('dark-mode');
   document.querySelectorAll('.sun-icon').forEach(el => el.style.display = isDark ? 'block' : 'none');
   document.querySelectorAll('.moon-icon').forEach(el => el.style.display = isDark ? 'none' : 'block');
 }
+
 // Apply icons on initial load
 applyThemeIcons();
+
 if (themeToggle) {
   themeToggle.addEventListener('click', () => {
     document.documentElement.classList.toggle('dark-mode');
