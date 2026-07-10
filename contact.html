@@ -41,9 +41,19 @@
     }
     .cf-field input::placeholder, .cf-field textarea::placeholder { color: var(--text-muted); }
     .cf-field input:focus, .cf-field textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(1,97,239,.12); }
-    .cf-submit { align-self: flex-start; }
+    .cf-submit {
+      font-family: 'Inter', sans-serif !important;
+      font-size: .95rem;
+      font-weight: 600;
+      padding: .8rem 2.25rem;
+      border-radius: 8px;
+      align-self: flex-start;
+      transition: all .2s ease;
+    }
+    .cf-submit svg { transition: transform .2s ease; }
+    .cf-submit:hover svg { transform: translate(3px, -3px); }
     .cf-status { text-align: center; font-size: .9rem; font-weight: 500; padding: .5rem 0; display: none; }
-    @media (max-width: 600px) { .cf-card { padding: 1.75rem 1.25rem; } .cf-row { grid-template-columns: 1fr; } .cf-submit { width: 100%; } }
+    @media (max-width: 600px) { .cf-card { padding: 1.75rem 1.25rem; } .cf-row { grid-template-columns: 1fr; } .cf-submit { width: 100%; justify-content: center; } }
   </style>
 </head>
 <body>
