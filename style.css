@@ -2,25 +2,25 @@
 
 /* ── DESIGN TOKENS ── */
 :root {
-  --primary: #a100ff;
-  --primary-dark: #7b00c2;
-  --primary-light: #f4e8ff;
-  --accent: #111111;
-  --accent-light: #f3f4f6;
-  --text: #000000;
-  --text-muted: rgba(0,0,0,0.65);
-  --bg: #fafafa;
+  --primary: #0161ef;
+  --primary-dark: #0154cf;
+  --primary-light: #e8f0fe;
+  --accent: #6d28d9;
+  --accent-light: #ede9fe;
+  --text: #0f0f12;
+  --text-muted: rgba(15,15,18,0.6);
+  --bg: #ffffff;
   --border: #e5e7eb;
 
-  --header-bg: rgba(250, 250, 250, 0.85);
+  --header-bg: rgba(255, 255, 255, 0.85);
   --card-bg: #ffffff;
-  --footer-bg: #f3f4f6;
-  --cta-bg: #f4e8ff;
-  --section-bg: #f3f4f6;
-  --nav-hover-bg: #f4e8ff;
-  --shadow-color: rgba(161, 0, 255, 0.1);
-  --shadow-md: 0 4px 24px rgba(161, 0, 255, 0.12);
-  --impact-bg: #fdfcff;
+  --footer-bg: #f8fafc;
+  --cta-bg: #f0f5ff;
+  --section-bg: #f8faff;
+  --nav-hover-bg: #f0f5ff;
+  --shadow-color: rgba(1, 97, 239, 0.08);
+  --shadow-md: 0 4px 24px rgba(1, 97, 239, 0.10);
+  --impact-bg: #eff6ff;
   --impact-text: #111111;
 
   /* Radius tokens */
@@ -30,8 +30,8 @@
   --radius-xl: 24px;
 
   /* Gradient tokens */
-  --gradient-primary: linear-gradient(135deg, #a100ff 0%, #d573ff 100%);
-  --gradient-subtle: linear-gradient(135deg, #fdfcff 0%, #f4e8ff 100%);
+  --gradient-primary: linear-gradient(135deg, #0161ef 0%, #6d28d9 100%);
+  --gradient-subtle: linear-gradient(135deg, #eff6ff 0%, #ede9fe 100%);
 }
 
 .dark-mode {
