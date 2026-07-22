@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Demos &mdash; Infinyty Tech</title>
+  <meta name="description" content="Explore live, functioning prototypes and portals built by our engineering team &mdash; real systems in action.">
+  <meta property="og:title" content="Interactive Demos — Infinyty Tech">
+  <meta property="og:description" content="Explore live, functioning prototypes and portals built by our engineering team — real systems in action.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://infinyty.netlify.app/demos.html">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="style.css?v=11.0">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark') document.documentElement.classList.add('dark-mode');
+    })();
+  </script>
+</head>
+<body>
+<div id="scroll-progress"></div>
+
+<header id="header">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 40 36" fill="none">
+        <path d="M10 18C10 12 15 11 18 15.5C21 20 26 25 30 20C34 15 29 10 25 14.5C21 19 16 25 12 21C9.5 18.5 9.5 12.5 15 11" stroke="url(#navLogoGrad)" stroke-width="2.6" stroke-linecap="round"/>
+        <defs>
+          <linearGradient id="navLogoGrad" x1="10" y1="18" x2="34" y2="18" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#0072F4"/>
+            <stop offset="100%" stop-color="#4FC8FF"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span class="nav-brandmark-text">infi<b>nyty</b>.tech</span>
+    </a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="success-stories.html">Success Stories</a></li>
+        <li><a href="demos.html">Demos</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="careers.html">Careers</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </nav>
+    <div class="nav-actions">
+      <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Dark Mode">
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+      </button>
+      <a href="contact.html#contact-form" class="btn-secondary book-meeting-btn" style="padding:.5rem 1.25rem;font-size:.875rem;">Book a Meeting</a>
+    </div>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="success-stories.html">Success Stories</a>
+    <a href="demos.html">Demos</a>
+    <a href="about.html">About Us</a>
+    <a href="careers.html">Careers</a>
+    <a href="contact.html">Contact Us</a>
+    <a href="contact.html#contact-form" class="btn-primary" style="margin-top:.5rem;justify-content:center;">Book a Meeting</a>
+  </div>
+</header>
+
+<main>
+  <div class="page-hero">
+    <p class="tagline">Playground</p>
+    <h1>Interactive Demos</h1>
+    <p>Explore live, functioning prototypes and portals built by our engineering team to prove execution speed and capability.</p>
+  </div>
+
+  <div class="section" style="padding-top: 2rem;">
+    <!-- DEMO 1: FLEET PORTAL -->
+    <div class="case-study">
+      <div class="case-img">
+        <img src="assets/case-fleet.jpg" loading="lazy" alt="Fleet Ledger & Operator Settlement Portal">
+      </div>
+      <div class="case-content">
+        <span class="case-meta">Interactive Demo</span>
+        <h2 class="case-title">Fleet Ledger &amp; Operator Settlement Portal</h2>
+        
+        <div class="case-subtitle">Case Study Reference</div>
+        <p><strong>Automated Fleet Settlements &amp; Compliance Hub</strong></p>
+
+        <div class="case-subtitle">Challenge</div>
+        <p>A fleet management company relied on disconnected Google Sheets to manually reconcile weekly driver payouts, vehicle rental deductions, and regulatory compliance records. This manual spreadsheet tracking was highly labor-intensive, prone to reconciliation errors, and caused frequent settlement disputes due to a lack of transparency.</p>
+        
+        <div class="case-subtitle">Solution</div>
+        <p>Developed a unified, automated Fleet Ledger Portal that replaces spreadsheets with a real-time operational dashboard. The portal aggregates platform ride logs, auto-calculates net settlements, tracks document compliance status, and provides a localized interface supporting both English and Hindi.</p>
+        
+        <div class="case-impact">
+          <div class="impact-title">Business Impact</div>
+          <p class="impact-desc">Replaced manual spreadsheet operations with automated summaries, reducing settlement processing time from days to seconds. Eliminated spreadsheet-based data entry errors, decreased billing disputes by 80%, and ensured 100% compliance tracking visibility.</p>
+        </div>
+
+        <div style="margin-top: 2rem;">
+          <a href="demos/fleet-portal/index.html" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.75rem; font-size: 0.95rem; border-radius: var(--radius-sm);">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2 2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Launch Interactive Demo
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand"><h3>Infinyty Tech</h3><p>Driving Excellence with Data &amp; AI. Formerly Infinity Analytics Consulting.</p></div>
+      <div class="footer-col"><h4>Solutions</h4><ul><li><a href="services.html">Agentic AI &amp; Gen AI</a></li><li><a href="services.html">Predictive Analytics</a></li><li><a href="services.html">Data Engineering</a></li><li><a href="services.html">Software Development</a></li></ul></div>
+      <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="success-stories.html">Success Stories</a></li><li><a href="demos.html">Demos</a></li><li><a href="careers.html">Careers</a></li><li><a href="contact.html">Contact Us</a></li></ul></div>
+      <div class="footer-col"><h4>Contact Us</h4><ul><li><a href="mailto:contact@infinyty.tech">contact@infinyty.tech</a></li><li><a href="tel:+919930420065">+91 99304 20065</a></li><li><a href="https://www.linkedin.com/company/infinyty-tech-global-services" target="_blank">LinkedIn</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Infinyty.tech &mdash; All Rights Reserved.<br>Powered by Infinyty Tech Global Solutions Pvt. Ltd.</p>
+      <div class="footer-socials">
+        <a href="https://wa.me/919930420065" aria-label="WhatsApp"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 21 1.65-3.8a9 9 0 1 1 3.4 2.9z"/></svg></a>
+        <a href="mailto:contact@infinyty.tech" aria-label="Email"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+        <a href="https://www.linkedin.com/company/infinyty-tech-global-services" target="_blank" aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js?v=7.0"></script>
+</body>
+</html>
