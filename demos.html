@@ -18,37 +18,66 @@
     })();
   </script>
   <style>
-    /* Phone frame container */
-    .demo-phone-wrapper {
-      width: 390px;
-      height: 780px;
-      border-radius: 38px;
-      overflow: hidden;
-      box-shadow: 0 24px 60px rgba(0,0,0,0.18), 0 0 0 8px var(--card-bg), 0 0 0 10px var(--border);
+    .demo-phone-shell {
       position: relative;
-      background: #fff;
+      width: 300px;
       flex-shrink: 0;
+      cursor: pointer;
     }
-    /* iframe exactly matches max-w-md (448px). React app fills width with rounded-none at <768px */
-    .demo-phone-wrapper iframe {
-      width: 448px;
-      height: 780px;
-      border: none;
+    .demo-phone-shell img {
+      width: 100%;
+      border-radius: 36px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.18), 0 0 0 6px var(--card-bg), 0 0 0 8px var(--border);
       display: block;
-      /* shift left by (448-390)/2=29px to visually centre */
-      transform: translateX(-29px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .demo-phone-shell:hover img {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 36px 72px rgba(0,0,0,0.22), 0 0 0 6px var(--card-bg), 0 0 0 8px var(--border);
+    }
+    .demo-launch-overlay {
+      position: absolute;
+      inset: 0;
+      border-radius: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0);
+      transition: background 0.3s ease;
+    }
+    .demo-phone-shell:hover .demo-launch-overlay {
+      background: rgba(0, 0, 0, 0.35);
+    }
+    .demo-launch-btn {
+      opacity: 0;
+      transform: translateY(8px) scale(0.95);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      background: #fff;
+      color: #0072F4;
+      font-weight: 800;
+      font-size: 0.9rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+      text-decoration: none;
+      pointer-events: none;
+    }
+    .demo-phone-shell:hover .demo-launch-btn {
+      opacity: 1;
+      transform: translateY(0) scale(1);
       pointer-events: auto;
     }
-    @media (max-width: 600px) {
-      .demo-phone-wrapper {
-        width: 100%;
-        border-radius: 0;
-        box-shadow: none;
-      }
-      .demo-phone-wrapper iframe {
-        width: 100%;
-        transform: none;
-      }
+    .demo-open-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
     }
   </style>
 </head>
@@ -111,41 +140,67 @@
   <div class="section" style="padding-top: 1rem; max-width: 1200px; margin: 0 auto;">
 
     <!-- DEMO HEADER -->
-    <div style="margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem;">
+    <div style="margin-bottom: 2.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem;">
       <span class="case-meta" style="margin-bottom: 0.5rem; display: inline-block;">Featured Prototype &mdash; 01</span>
       <h2 class="case-title" style="font-size: 2.2rem; margin-bottom: 0.5rem;">Fleet Ledger &amp; Operator Settlement Portal</h2>
       <p style="font-size: 1.05rem; color: var(--text-muted); font-weight: 500; margin: 0;">Automated Fleet Settlements &amp; Compliance Hub</p>
     </div>
 
-    <!-- CHALLENGE / SOLUTION / IMPACT GRID -->
-    <div class="grid-3" style="margin-bottom: 3rem; align-items: stretch; gap: 1.5rem;">
-      <div class="card" style="padding: 1.75rem; display: flex; flex-direction: column; opacity: 1; transform: none;">
-        <div class="case-subtitle" style="margin-top: 0; margin-bottom: 0.6rem;">Challenge</div>
-        <p style="font-size: 0.93rem; color: var(--text-muted); line-height: 1.65; margin: 0;">A fleet management company relied on disconnected Google Sheets to manually reconcile driver payouts, vehicle rentals, and compliance records. This spreadsheet-based process was highly labor-intensive, error-prone, and caused frequent disputes.</p>
-      </div>
-      <div class="card" style="padding: 1.75rem; display: flex; flex-direction: column; opacity: 1; transform: none;">
-        <div class="case-subtitle" style="margin-top: 0; margin-bottom: 0.6rem;">Solution</div>
-        <p style="font-size: 0.93rem; color: var(--text-muted); line-height: 1.65; margin: 0;">Developed an automated Fleet Ledger Portal aggregating platform ride logs, auto-calculating settlements, tracking compliance documents, and providing a localized, dual-language interface (English &amp; Hindi).</p>
-      </div>
-      <div class="card" style="padding: 1.75rem; border-left: 4px solid var(--primary); display: flex; flex-direction: column; opacity: 1; transform: none;">
-        <div class="case-subtitle" style="color: var(--primary); margin-top: 0; margin-bottom: 0.6rem;">Business Impact</div>
-        <p style="font-size: 0.93rem; color: var(--text); font-weight: 600; line-height: 1.65; margin: 0;">Replaced manual sheets with automated summaries, reducing settlement processing time from days to seconds. Decreased driver billing disputes by 80% and achieved 100% compliance visibility.</p>
-      </div>
-    </div>
+    <!-- TWO-COLUMN LAYOUT: PHONE PREVIEW + INFO -->
+    <div style="display: flex; gap: 4rem; align-items: center; flex-wrap: wrap; justify-content: center; margin-bottom: 5rem;">
 
-    <!-- PHONE DEMO + OPEN FULLSCREEN -->
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 1.5rem; margin-bottom: 5rem;">
-
-      <a href="demos/fleet-portal/index.html" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; font-size: 0.9rem; border-radius: var(--radius-sm);">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        Open Fullscreen
-      </a>
-
-      <!-- Phone frame: iframe is 900px wide so the React app centres itself, we crop to 390px -->
-      <div class="demo-phone-wrapper">
-        <iframe src="demos/fleet-portal/index.html" scrolling="no" title="Fleet Ledger Portal Live Demo"></iframe>
+      <!-- Phone Preview with hover overlay -->
+      <div class="demo-phone-shell" onclick="window.open('demos/fleet-portal/index.html','_blank')" title="Click to open demo">
+        <img src="assets/fleet-portal-real.png" alt="Fleet Ledger Portal Real Screenshot" loading="lazy">
+        <div class="demo-launch-overlay">
+          <span class="demo-launch-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Launch Demo
+          </span>
+        </div>
       </div>
 
+      <!-- Right: info + CTA -->
+      <div style="flex: 1; min-width: 280px; max-width: 520px; display: flex; flex-direction: column; gap: 1.75rem;">
+
+        <div>
+          <div class="case-subtitle" style="margin-top: 0; margin-bottom: 0.5rem;">Challenge</div>
+          <p style="font-size: 0.93rem; color: var(--text-muted); line-height: 1.65; margin: 0;">A fleet management company relied on disconnected Google Sheets to manually reconcile driver payouts, vehicle rentals, and compliance records — causing frequent disputes and errors.</p>
+        </div>
+
+        <div>
+          <div class="case-subtitle" style="margin-top: 0; margin-bottom: 0.5rem;">Solution</div>
+          <p style="font-size: 0.93rem; color: var(--text-muted); line-height: 1.65; margin: 0;">Built an automated Fleet Ledger Portal with real-time ride log aggregation, auto-calculated settlements, compliance tracking, and a bilingual interface (English &amp; Hindi).</p>
+        </div>
+
+        <div class="case-impact" style="margin-top: 0;">
+          <div class="impact-title">Business Impact</div>
+          <p class="impact-desc" style="margin: 0;">Processing time reduced from days to seconds. Driver billing disputes dropped by <strong>80%</strong>. Compliance visibility reached <strong>100%</strong>.</p>
+        </div>
+
+        <!-- What's inside tags -->
+        <div>
+          <div class="case-subtitle" style="margin-top: 0; margin-bottom: 0.75rem;">What's inside the demo</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+            <span style="background: var(--chip-bg, var(--card-bg)); border: 1px solid var(--border); border-radius: 50px; padding: 0.3rem 0.85rem; font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">Driver Login</span>
+            <span style="background: var(--chip-bg, var(--card-bg)); border: 1px solid var(--border); border-radius: 50px; padding: 0.3rem 0.85rem; font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">Operator Login</span>
+            <span style="background: var(--chip-bg, var(--card-bg)); border: 1px solid var(--border); border-radius: 50px; padding: 0.3rem 0.85rem; font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">Hisaab Ledger</span>
+            <span style="background: var(--chip-bg, var(--card-bg)); border: 1px solid var(--border); border-radius: 50px; padding: 0.3rem 0.85rem; font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">Fleet Dashboard</span>
+            <span style="background: var(--chip-bg, var(--card-bg)); border: 1px solid var(--border); border-radius: 50px; padding: 0.3rem 0.85rem; font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">Compliance Docs</span>
+            <span style="background: var(--chip-bg, var(--card-bg)); border: 1px solid var(--border); border-radius: 50px; padding: 0.3rem 0.85rem; font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">Hindi / English</span>
+            <span style="background: var(--chip-bg, var(--card-bg)); border: 1px solid var(--border); border-radius: 50px; padding: 0.3rem 0.85rem; font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">SOS Emergency</span>
+            <span style="background: var(--chip-bg, var(--card-bg)); border: 1px solid var(--border); border-radius: 50px; padding: 0.3rem 0.85rem; font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">Support Tickets</span>
+          </div>
+        </div>
+
+        <div>
+          <a href="demos/fleet-portal/index.html" target="_blank" class="btn-primary demo-open-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Open Live Demo
+          </a>
+        </div>
+
+      </div>
     </div>
 
   </div>
