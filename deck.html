@@ -93,6 +93,65 @@
     @keyframes fadeHint { to { opacity: 0; } }
     @media (max-width: 768px) { .service-grid, .case-grid { grid-template-columns: 1fr 1fr; } .team-grid { grid-template-columns: 1fr; } .why-grid { grid-template-columns: 1fr; } .slide { padding: 3rem 1.5rem 5rem; } }
     @media (max-width: 540px) { .service-grid, .case-grid { grid-template-columns: 1fr; } .stats-row { gap: 0.75rem; } .stat-card { padding: 1.25rem; } }
+
+    /* ── PDF DOWNLOAD BUTTON ── */
+    #pdf-btn {
+      position: fixed; top: 1.25rem; right: 1.5rem; z-index: 1000;
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      background: rgba(255,255,255,0.06); border: 1px solid var(--border);
+      color: var(--text); font-size: 0.78rem; font-weight: 600;
+      padding: 0.45rem 1rem; border-radius: 8px; cursor: pointer;
+      backdrop-filter: blur(8px); transition: background 0.2s, border-color 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    #pdf-btn:hover { background: rgba(0,114,244,0.2); border-color: rgba(0,114,244,0.5); color: var(--accent); }
+    #pdf-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── PRINT / PDF STYLES ── */
+    @media print {
+      @page { size: A4 landscape; margin: 0; }
+
+      html, body { overflow: visible !important; height: auto !important; width: 100% !important; background: #020714 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+      /* Hide all interactive chrome */
+      #progress-bar, #slide-counter, #key-hint, #nav-prev, #nav-next, .deck-logo, #pdf-btn { display: none !important; }
+
+      /* Un-stack slides — each on its own page */
+      .slide {
+        position: relative !important;
+        display: flex !important;
+        opacity: 1 !important;
+        transform: none !important;
+        pointer-events: auto !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        page-break-after: always;
+        break-after: page;
+        overflow: hidden !important;
+        padding: 2.5rem 4rem !important;
+      }
+      .slide:last-of-type { page-break-after: avoid; break-after: avoid; }
+
+      /* Force dark backgrounds to print */
+      .slide-1, .slide-3, .slide-5, .slide-7, .slide-9 { background: #020714 !important; }
+      .slide-2, .slide-4, .slide-6, .slide-8 { background: #06112a !important; }
+      .slide-10 { background: #020714 !important; }
+
+      /* Gradient text fallback — force color since some PDF renderers drop -webkit-text-fill-color */
+      .gradient-text { color: #4FC8FF !important; -webkit-text-fill-color: #4FC8FF !important; }
+      .stat-num, .case-metric, .why-num { color: #4FC8FF !important; -webkit-text-fill-color: #4FC8FF !important; }
+
+      /* Ensure cards print with their borders */
+      .stat-card, .service-card, .case-card, .team-card, .why-card, .industry-pill, .cta-box { border: 1px solid rgba(79,200,255,0.3) !important; }
+
+      /* Scale down big grids slightly for print */
+      .service-grid, .case-grid { gap: 0.65rem !important; }
+      .service-card, .case-card { padding: 1rem !important; }
+      .slide-h2 { font-size: 2.4rem !important; }
+      .slide-h1 { font-size: 3.5rem !important; }
+      .stats-row { margin-top: 1.5rem !important; }
+      .why-grid, .team-grid { margin-top: 1.5rem !important; gap: 0.75rem !important; }
+    }
   </style>
 </head>
 <body>
@@ -101,10 +160,17 @@
   <svg viewBox="0 0 40 36" fill="none"><path d="M10 18C10 12 15 11 18 15.5C21 20 26 25 30 20C34 15 29 10 25 14.5C21 19 16 25 12 21C9.5 18.5 9.5 12.5 15 11" stroke="url(#dLogoGrad)" stroke-width="2.6" stroke-linecap="round"/><defs><linearGradient id="dLogoGrad" x1="10" y1="18" x2="34" y2="18" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#0072F4"/><stop offset="100%" stop-color="#4FC8FF"/></linearGradient></defs></svg>
   <span class="deck-logo-text">infi<b>nyty</b>.tech</span>
 </a>
+
+<!-- PDF Download button -->
+<button id="pdf-btn" onclick="window.print()" title="Save as PDF: choose 'Save as PDF' in the print dialog">
+  <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+  Download PDF
+</button>
+
 <button class="nav-btn" id="nav-prev" aria-label="Previous slide"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
 <button class="nav-btn" id="nav-next" aria-label="Next slide"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
 <div id="slide-counter"></div>
-<div id="key-hint">← → Arrow keys to navigate</div>
+<div id="key-hint">← → Arrow keys &nbsp;|&nbsp; Click ↓ Download PDF to export</div>
 
 <!-- SLIDE 1: COVER -->
 <div class="slide slide-1 active" data-index="0">
