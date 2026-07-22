@@ -18,7 +18,7 @@
     })();
   </script>
   <style>
-    /* Phone frame container — clip the outer body-bg padding from the React app, show only the phone card */
+    /* Phone frame container */
     .demo-phone-wrapper {
       width: 390px;
       height: 780px;
@@ -29,15 +29,14 @@
       background: #fff;
       flex-shrink: 0;
     }
-    /* The iframe is wider than the wrapper so the outer page bg of the react app is cut off,
-       showing only the centered phone card. We shift it left to centre the card. */
+    /* iframe exactly matches max-w-md (448px). React app fills width with rounded-none at <768px */
     .demo-phone-wrapper iframe {
-      width: 900px;
+      width: 448px;
       height: 780px;
       border: none;
       display: block;
-      /* The React app centres its 448px card inside 900px → offset is (900-390)/2 = 255px */
-      transform: translateX(-255px);
+      /* shift left by (448-390)/2=29px to visually centre */
+      transform: translateX(-29px);
       pointer-events: auto;
     }
     @media (max-width: 600px) {
@@ -156,7 +155,7 @@
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand"><h3>Infinyty Tech</h3><p>Driving Excellence with Data &amp; AI. Formerly Infinity Analytics Consulting.</p></div>
-      <div class="footer-col"><h4>Solutions</h4><ul><li><a href="services.html">Agentic AI &amp; Gen AI</a></li><li><a href="services.html">Predictive Analytics</a></li><li><a href="services.html">Data Engineering</a></li><li><a href="services.html">Software Development</a></li></ul></div>
+      <div class="footer-col"><h4>Solutions</h4><ul><li><a href="services.html">Agentic AI &amp; Gen AI</a></li><li><a href="services.html">Predictive Analytics</a></li><li><a href="services.html#data-engineering">Data Engineering</a></li><li><a href="services.html">Software Development</a></li></ul></div>
       <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="success-stories.html">Success Stories</a></li><li><a href="demos.html">Demos</a></li><li><a href="careers.html">Careers</a></li><li><a href="contact.html">Contact Us</a></li></ul></div>
       <div class="footer-col"><h4>Contact Us</h4><ul><li><a href="mailto:contact@infinyty.tech">contact@infinyty.tech</a></li><li><a href="tel:+919930420065">+91 99304 20065</a></li><li><a href="https://www.linkedin.com/company/infinyty-tech-global-services" target="_blank">LinkedIn</a></li></ul></div>
     </div>
