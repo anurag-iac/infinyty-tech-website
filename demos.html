@@ -17,6 +17,41 @@
       if (t === 'dark') document.documentElement.classList.add('dark-mode');
     })();
   </script>
+  <style>
+    /* Phone frame container — clip the outer body-bg padding from the React app, show only the phone card */
+    .demo-phone-wrapper {
+      width: 390px;
+      height: 780px;
+      border-radius: 38px;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.18), 0 0 0 8px var(--card-bg), 0 0 0 10px var(--border);
+      position: relative;
+      background: #fff;
+      flex-shrink: 0;
+    }
+    /* The iframe is wider than the wrapper so the outer page bg of the react app is cut off,
+       showing only the centered phone card. We shift it left to centre the card. */
+    .demo-phone-wrapper iframe {
+      width: 900px;
+      height: 780px;
+      border: none;
+      display: block;
+      /* The React app centres its 448px card inside 900px → offset is (900-390)/2 = 255px */
+      transform: translateX(-255px);
+      pointer-events: auto;
+    }
+    @media (max-width: 600px) {
+      .demo-phone-wrapper {
+        width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+      }
+      .demo-phone-wrapper iframe {
+        width: 100%;
+        transform: none;
+      }
+    }
+  </style>
 </head>
 <body>
 <div id="scroll-progress"></div>
@@ -75,7 +110,7 @@
   </div>
 
   <div class="section" style="padding-top: 1rem; max-width: 1200px; margin: 0 auto;">
-    
+
     <!-- DEMO HEADER -->
     <div style="margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem;">
       <span class="case-meta" style="margin-bottom: 0.5rem; display: inline-block;">Featured Prototype &mdash; 01</span>
@@ -85,40 +120,33 @@
 
     <!-- CHALLENGE / SOLUTION / IMPACT GRID -->
     <div class="grid-3" style="margin-bottom: 3rem; align-items: stretch; gap: 1.5rem;">
-      
       <div class="card" style="padding: 1.75rem; display: flex; flex-direction: column; opacity: 1; transform: none;">
         <div class="case-subtitle" style="margin-top: 0; margin-bottom: 0.6rem;">Challenge</div>
         <p style="font-size: 0.93rem; color: var(--text-muted); line-height: 1.65; margin: 0;">A fleet management company relied on disconnected Google Sheets to manually reconcile driver payouts, vehicle rentals, and compliance records. This spreadsheet-based process was highly labor-intensive, error-prone, and caused frequent disputes.</p>
       </div>
-
       <div class="card" style="padding: 1.75rem; display: flex; flex-direction: column; opacity: 1; transform: none;">
         <div class="case-subtitle" style="margin-top: 0; margin-bottom: 0.6rem;">Solution</div>
         <p style="font-size: 0.93rem; color: var(--text-muted); line-height: 1.65; margin: 0;">Developed an automated Fleet Ledger Portal aggregating platform ride logs, auto-calculating settlements, tracking compliance documents, and providing a localized, dual-language interface (English &amp; Hindi).</p>
       </div>
-
       <div class="card" style="padding: 1.75rem; border-left: 4px solid var(--primary); display: flex; flex-direction: column; opacity: 1; transform: none;">
         <div class="case-subtitle" style="color: var(--primary); margin-top: 0; margin-bottom: 0.6rem;">Business Impact</div>
         <p style="font-size: 0.93rem; color: var(--text); font-weight: 600; line-height: 1.65; margin: 0;">Replaced manual sheets with automated summaries, reducing settlement processing time from days to seconds. Decreased driver billing disputes by 80% and achieved 100% compliance visibility.</p>
       </div>
-
     </div>
 
-    <!-- FLAT MOBILE PHONE DEMO LAYOUT -->
-    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 5rem; gap: 1.5rem;">
-      
-      <!-- Action buttons -->
-      <div>
-        <a href="demos/fleet-portal/index.html" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; font-size: 0.9rem; border-radius: var(--radius-sm);">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          Open Fullscreen
-        </a>
+    <!-- PHONE DEMO + OPEN FULLSCREEN -->
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 1.5rem; margin-bottom: 5rem;">
+
+      <a href="demos/fleet-portal/index.html" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; font-size: 0.9rem; border-radius: var(--radius-sm);">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Open Fullscreen
+      </a>
+
+      <!-- Phone frame: iframe is 900px wide so the React app centres itself, we crop to 390px -->
+      <div class="demo-phone-wrapper">
+        <iframe src="demos/fleet-portal/index.html" scrolling="no" title="Fleet Ledger Portal Live Demo"></iframe>
       </div>
 
-      <!-- Centered Flat Phone Frame -->
-      <div style="width: 380px; height: 680px; border: 4px solid var(--border); border-radius: 36px; overflow: hidden; box-shadow: 0 12px 36px var(--shadow-color); background: #ffffff; position: relative;">
-        <iframe src="demos/fleet-portal/index.html" style="width: 100%; height: 100%; border: none; display: block;" title="Fleet Ledger Portal Live Demo" scrolling="no"></iframe>
-      </div>
-      
     </div>
 
   </div>
