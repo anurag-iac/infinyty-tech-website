@@ -35,6 +35,26 @@
       transform: translateY(-6px) scale(1.01);
       box-shadow: 0 36px 72px rgba(0,0,0,0.22), 0 0 0 6px var(--card-bg), 0 0 0 8px var(--border);
     }
+
+    .demo-desktop-shell {
+      position: relative;
+      width: 100%;
+      max-width: 520px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+    .demo-desktop-shell img {
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.18), 0 0 0 4px var(--card-bg), 0 0 0 6px var(--border);
+      display: block;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .demo-desktop-shell:hover img {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 36px 72px rgba(0,0,0,0.22), 0 0 0 4px var(--card-bg), 0 0 0 6px var(--border);
+    }
+
     .demo-launch-overlay {
       position: absolute;
       inset: 0;
@@ -45,7 +65,11 @@
       background: rgba(0,0,0,0);
       transition: background 0.3s ease;
     }
-    .demo-phone-shell:hover .demo-launch-overlay {
+    .demo-desktop-shell .demo-launch-overlay {
+      border-radius: 16px;
+    }
+    .demo-phone-shell:hover .demo-launch-overlay,
+    .demo-desktop-shell:hover .demo-launch-overlay {
       background: rgba(0, 0, 0, 0.35);
     }
     .demo-launch-btn {
@@ -65,7 +89,8 @@
       text-decoration: none;
       pointer-events: none;
     }
-    .demo-phone-shell:hover .demo-launch-btn {
+    .demo-phone-shell:hover .demo-launch-btn,
+    .demo-desktop-shell:hover .demo-launch-btn {
       opacity: 1;
       transform: translateY(0) scale(1);
       pointer-events: auto;
@@ -139,7 +164,7 @@
 
   <div class="section" style="padding-top: 1rem; max-width: 1200px; margin: 0 auto;">
 
-    <!-- DEMO HEADER -->
+    <!-- PROTOTYPE 01: FLEET LEDGER -->
     <div style="margin-bottom: 2.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem;">
       <span class="case-meta" style="margin-bottom: 0.5rem; display: inline-block;">Featured Prototype &mdash; 01</span>
       <h2 class="case-title" style="font-size: 2.2rem; margin-bottom: 0.5rem;">Fleet Ledger &amp; Operator Settlement Portal</h2>
@@ -147,7 +172,7 @@
     </div>
 
     <!-- TWO-COLUMN LAYOUT: PHONE PREVIEW + INFO -->
-    <div style="display: flex; gap: 4rem; align-items: center; flex-wrap: wrap; justify-content: center; margin-bottom: 5rem;">
+    <div style="display: flex; gap: 4rem; align-items: center; flex-wrap: wrap; justify-content: center; margin-bottom: 6rem;">
 
       <!-- Phone Preview with hover overlay -->
       <div class="demo-phone-shell" onclick="window.open('demos/fleet-portal/index.html','_blank')" title="Click to open demo">
@@ -195,6 +220,69 @@
 
         <div>
           <a href="demos/fleet-portal/index.html" target="_blank" class="btn-primary demo-open-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Open Live Demo
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- PROTOTYPE 02: FLEET OPERATIONS PORTAL -->
+    <div style="margin-bottom: 2.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; padding-top: 2rem;">
+      <span class="case-meta" style="margin-bottom: 0.5rem; display: inline-block;">Featured Prototype &mdash; 02</span>
+      <h2 class="case-title" style="font-size: 2.2rem; margin-bottom: 0.5rem;">Fleet Operations &amp; Driver Onboarding Portal</h2>
+      <p style="font-size: 1.05rem; color: var(--text-muted); font-weight: 500; margin: 0;">Automated Fleet Operations, PDI Inspections &amp; Workshop Hub</p>
+    </div>
+
+    <!-- TWO-COLUMN LAYOUT: DESKTOP PREVIEW + INFO -->
+    <div style="display: flex; gap: 4rem; align-items: center; flex-wrap: wrap; justify-content: center; margin-bottom: 5rem;">
+
+      <!-- Desktop Preview with hover overlay -->
+      <div class="demo-desktop-shell" onclick="window.open('demos/operations-portal/index.html','_blank')" title="Click to open demo">
+        <img src="assets/ops-portal-real.png" alt="Fleet Operations Portal Screenshot" loading="lazy">
+        <div class="demo-launch-overlay">
+          <span class="demo-launch-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Launch Demo
+          </span>
+        </div>
+      </div>
+
+      <!-- Right: info + CTA -->
+      <div style="flex: 1; min-width: 280px; max-width: 520px; display: flex; flex-direction: column; gap: 1.75rem;">
+
+        <div>
+          <div class="case-subtitle" style="margin-top: 0; margin-bottom: 0.5rem;">Challenge</div>
+          <p style="font-size: 0.93rem; color: var(--text-muted); line-height: 1.65; margin: 0;">Operations management—including driver onboarding, vehicle inspections, rent configurations, and expense logs—was scattered across manual, fragmented Google Sheets. This caused input errors, lacked real-time audit trails, and led to rent settlement disputes.</p>
+        </div>
+
+        <div>
+          <div class="case-subtitle" style="margin-top: 0; margin-bottom: 0.5rem;">Solution</div>
+          <p style="font-size: 0.93rem; color: var(--text-muted); line-height: 1.65; margin: 0;">Developed a unified, responsive operations portal consolidating 20+ specialized workflows (PDI inspections, driver allocations, rent adjustments, ticket resolution, and workshop management) with native camera capture and client-side mock-API persistence.</p>
+        </div>
+
+        <div class="case-impact" style="margin-top: 0;">
+          <div class="impact-title">Business Impact</div>
+          <p class="impact-desc" style="margin: 0;">Replaced error-prone spreadsheets with automated workflows. Enabled one-click demo setups, eliminated input slip-ups, resolved driver disputes via visual audit trails, and scaled fleet coordination capacity.</p>
+        </div>
+
+        <!-- What's inside tags -->
+        <div>
+          <div class="case-subtitle" style="margin-top: 0; margin-bottom: 0.75rem;">What's inside the demo</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+            <span style="background: var(--chip-bg, var(--card-bg)); border: 1px solid var(--border); border-radius: 50px; padding: 0.3rem 0.85rem; font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">PDI Inspections</span>
+            <span style="background: var(--chip-bg, var(--card-bg)); border: 1px solid var(--border); border-radius: 50px; padding: 0.3rem 0.85rem; font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">Driver Allocations</span>
+            <span style="background: var(--chip-bg, var(--card-bg)); border: 1px solid var(--border); border-radius: 50px; padding: 0.3rem 0.85rem; font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">Workshop Hub</span>
+            <span style="background: var(--chip-bg, var(--card-bg)); border: 1px solid var(--border); border-radius: 50px; padding: 0.3rem 0.85rem; font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">Rent Adjustments</span>
+            <span style="background: var(--chip-bg, var(--card-bg)); border: 1px solid var(--border); border-radius: 50px; padding: 0.3rem 0.85rem; font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">Camera Audit Trails</span>
+            <span style="background: var(--chip-bg, var(--card-bg)); border: 1px solid var(--border); border-radius: 50px; padding: 0.3rem 0.85rem; font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">LocalStorage Persistence</span>
+          </div>
+        </div>
+
+        <div>
+          <a href="demos/operations-portal/index.html" target="_blank" class="btn-primary demo-open-btn">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             Open Live Demo
           </a>
