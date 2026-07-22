@@ -74,9 +74,8 @@ if (themeToggle) {
 const animatables = document.querySelectorAll('.card, .team-card, .contact-card');
 if ('IntersectionObserver' in window && animatables.length > 0) {
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        // Stagger delay based on position in its grid row
         const siblings = [...entry.target.parentElement.children];
         const idx = siblings.indexOf(entry.target);
         entry.target.style.transitionDelay = (idx % 3) * 80 + 'ms';
@@ -87,6 +86,46 @@ if ('IntersectionObserver' in window && animatables.length > 0) {
   }, { threshold: 0.12 });
   animatables.forEach(el => observer.observe(el));
 } else {
-  // Fallback: show all immediately if IntersectionObserver not supported
   animatables.forEach(el => el.classList.add('visible'));
+}
+
+// ── METRIC COUNTER ANIMATION ──
+const counters = document.querySelectorAll('.metric-counter');
+if ('IntersectionObserver' in window && counters.length > 0) {
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const targetStr = el.getAttribute('data-count');
+        if (!targetStr) return;
+
+        const numMatch = targetStr.match(/([\d\.]+)/);
+        if (numMatch) {
+          const targetNum = parseFloat(numMatch[1]);
+          const isDecimal = numMatch[1].includes('.');
+          const duration = 1200;
+          const startTime = performance.now();
+
+          const animate = (currentTime) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easeProgress = 1 - Math.pow(1 - progress, 3);
+            const currentVal = (targetNum * easeProgress).toFixed(isDecimal ? 1 : 0);
+
+            el.textContent = targetStr.replace(numMatch[1], currentVal);
+
+            if (progress < 1) {
+              requestAnimationFrame(animate);
+            } else {
+              el.textContent = targetStr;
+            }
+          };
+          requestAnimationFrame(animate);
+        }
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  counters.forEach(c => counterObserver.observe(c));
 }
