@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infinyty Tech &mdash; Capability Overview &amp; Client Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ============ PRESENTATION VIEWPORT LAYOUT (PITCH STYLE) ============ */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      background: #090B11;
+      color: #0F172A;
+      font-family: 'Inter', sans-serif;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      letter-spacing: -0.02em;
+    }
+
+    /* Widescreen 16:9 Presentation Stage */
+    .stage-container {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      background: #090B11;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-origin: center center;
+    }
+
+    /* Slides are consistently light-themed */
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #FFFFFF;
+      border-radius: 16px;
+      padding: 64px 80px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.98);
+      transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+                  transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      box-shadow: 0 30px 100px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1);
+      z-index: 10;
+    }
+
+    /* ============ SLIDE HEADER ============ */
+    .slide-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-shrink: 0;
+    }
+    
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-logo {
+      width: 38px;
+      height: auto;
+      display: block;
+    }
+    .brand-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: #0F172A;
+    }
+    .brand-name b { color: #0072F4; font-weight: 700; }
+
+    .slide-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 14px;
+      font-weight: 600;
+      color: #94A3B8;
+    }
+
+    /* Eyebrow kicker style */
+    .eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #0072F4;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .eyebrow::before {
+      content: '';
+      width: 16px;
+      height: 2px;
+      background: #0072F4;
+    }
+
+    h2.slide-title {
+      font-size: 44px;
+      font-weight: 700;
+      line-height: 1.15;
+      color: #0F172A;
+      max-width: 1100px;
+      flex-shrink: 0;
+    }
+
+    .slide-desc {
+      font-size: 20px;
+      color: #475569;
+      margin-top: 8px;
+      line-height: 1.45;
+      max-width: 1000px;
+      flex-shrink: 0;
+    }
+
+    /* ============ PITCH BOTTOM CONTROLS ============ */
+    .pitch-controls-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 72px;
+      background: #11141D;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      z-index: 1000;
+    }
+
+    .pitch-nav-arrows {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: #94A3B8;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .pitch-arrow-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .pitch-arrow-btn:hover {
+      background: #0072F4;
+      border-color: #0072F4;
+    }
+
+    .pitch-progress-segments {
+      flex: 1;
+      margin: 0 48px;
+      display: flex;
+      gap: 6px;
+      height: 4px;
+    }
+    .progress-segment {
+      flex: 1;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .progress-segment.active {
+      background: #0072F4;
+    }
+
+    .pitch-fullscreen-btn {
+      background: transparent;
+      border: none;
+      color: #94A3B8;
+      cursor: pointer;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s;
+    }
+    .pitch-fullscreen-btn:hover { color: #FFFFFF; }
+    .pitch-fullscreen-btn svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2.2; }
+
+    /* ============ SLIDE 1: CLEAN COVER ============ */
+    .cover-main {
+      margin-top: auto;
+      margin-bottom: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .cover-main h1 {
+      font-size: 84px;
+      font-weight: 700;
+      line-height: 1.1;
+      color: #0F172A;
+    }
+    .cover-main h1 span {
+      background: linear-gradient(95deg, #0072F4 0%, #4FC8FF 70%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .cover-subtitle {
+      font-size: 28px;
+      color: #475569;
+      line-height: 1.6;
+      max-width: 1100px;
+    }
+
+    /* ============ SLIDE 2: SERVICES MATRIX (EXPANDED TO 8 ITEMS EACH WITH MORE DETAIL) ============ */
+    .matrix-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 14px;
+      flex: 1;
+      min-height: 0;
+    }
+    .matrix-card {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 24px 32px;
+      display: flex;
+      flex-direction: column;
+    }
+    .matrix-card.featured {
+      background: #0F172A;
+      border-color: #1E293B;
+      color: #FFFFFF;
+    }
+    .matrix-card h3 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .matrix-card .card-kicker {
+      font-size: 14px;
+      color: #475569;
+      margin-bottom: 14px;
+    }
+    .matrix-card.featured .card-kicker { color: #94A3B8; }
+    
+    .matrix-rows {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      overflow-y: auto;
+    }
+    .matrix-row {
+      display: flex;
+      gap: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #E2E8F0;
+    }
+    .matrix-card.featured .matrix-row { border-bottom-color: #1E293B; }
+    .matrix-row:last-child { border-bottom: none; }
+    
+    .matrix-row svg {
+      width: 22px; height: 22px;
+      stroke: #0072F4; fill: none; stroke-width: 2.2;
+      flex-shrink: 0; margin-top: 2px;
+    }
+    .matrix-card.featured .matrix-row svg { stroke: #4FC8FF; }
+    
+    .matrix-text h4 { font-size: 15.5px; font-weight: 700; margin-bottom: 1px; }
+    .matrix-text p { font-size: 13px; color: #475569; line-height: 1.35; }
+    .matrix-card.featured .matrix-text p { color: #94A3B8; }
+
+    /* ============ SLIDE 3: DOMAINS GRID (6 SECTORS IN 3X2 GRID) ============ */
+    .domains-grid-6 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 24px;
+      flex: 1;
+      min-height: 0;
+    }
+    .domain-card-6 {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .domain-top-6 {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 10px;
+    }
+    .domain-icon-6 {
+      width: 44px; height: 44px;
+      background: #E0F2FE;
+      color: #0072F4;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .domain-icon-6 svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2.2; }
+    .domain-top-6 h3 { font-size: 19px; font-weight: 700; color: #0F172A; }
+    .domain-card-6 p { font-size: 15px; color: #475569; line-height: 1.5; }
+
+    /* ============ SLIDE 4: LEADERSHIP & COMPARISON MATRIX TABLE ============ */
+    .leadership-table-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 40px;
+      margin-top: 20px;
+      flex: 1;
+      min-height: 0;
+    }
+    .founders-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .founder-detail-card {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 24px 28px;
+    }
+    .founder-detail-card .f-name { font-size: 24px; font-weight: 700; color: #0F172A; }
+    .founder-detail-card .f-title {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: #0072F4;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+    .founder-detail-card p { font-size: 16.5px; color: #475569; line-height: 1.55; }
+    
+    /* Comparison Table Styling */
+    .comparison-table-wrapper {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 15px;
+      flex: 1;
+    }
+    .comp-table th, .comp-table td {
+      padding: 16px 20px;
+      border-bottom: 1px solid #E2E8F0;
+      vertical-align: middle;
+    }
+    .comp-table tr:last-child td {
+      border-bottom: none;
+    }
+    .comp-table th {
+      background: #F8FAFC;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: #0F172A;
+    }
+    .comp-table td.criteria {
+      font-weight: 600;
+      color: #334155;
+      background: #F8FAFC;
+      width: 22%;
+    }
+    .comp-table td.agency-val {
+      color: #BE123C;
+      background: #FFF5F5;
+      width: 39%;
+      line-height: 1.45;
+    }
+    .comp-table td.infinyty-val {
+      color: #047857;
+      background: #F0FDF4;
+      width: 39%;
+      font-weight: 500;
+      line-height: 1.45;
+    }
+    .comp-table td svg {
+      width: 16px; height: 16px;
+      vertical-align: middle;
+      margin-right: 8px;
+      display: inline-block;
+    }
+
+    /* ============ SLIDE 5: PROVEN CLIENT OUTCOMES (NO CONTAINER BOXES) ============ */
+    .outcomes-noboxes-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 36px 48px;
+      margin-top: 32px;
+      flex: 1;
+      min-height: 0;
+    }
+    .outcome-flat-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      border-bottom: 1px solid #E2E8F0;
+      padding-bottom: 16px;
+    }
+    .outcome-flat-card:nth-child(3), .outcome-flat-card:nth-child(4) {
+      border-bottom: none;
+    }
+    .outcome-flat-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .outcome-flat-header svg {
+      width: 26px; height: 26px;
+      fill: none; stroke: #0072F4; stroke-width: 2.2;
+      flex-shrink: 0;
+    }
+    .outcome-flat-header h3 {
+      font-size: 21px;
+      font-weight: 700;
+      color: #0F172A;
+    }
+    .outcome-flat-metrics {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    .outcome-flat-metric-item {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+    .outcome-flat-val {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #0072F4;
+    }
+    .outcome-flat-lbl {
+      font-size: 11px;
+      color: #64748B;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .outcome-flat-body {
+      font-size: 15px;
+      color: #475569;
+      line-height: 1.55;
+    }
+
+    /* ============ SLIDE 6: COMBINED ENGAGEMENT & NEXT STEPS (ONBOARDING TIMELINE FILLS SPACE) ============ */
+    .engage-top-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 16px;
+      margin-bottom: 24px;
+    }
+    .engage-card {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 24px 28px;
+      display: flex;
+      flex-direction: column;
+    }
+    .engage-card.primary-border { border-top: 4px solid #0072F4; }
+    .engage-kicker {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      font-weight: 600;
+      color: #0072F4;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .engage-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+    .engage-card p.tier-desc { font-size: 14.5px; color: #475569; line-height: 1.45; margin-bottom: 12px; }
+    
+    .engage-bullets {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      border-top: 1px solid #E2E8F0;
+      padding-top: 12px;
+      margin-top: auto;
+    }
+    .engage-bullet { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: #475569; }
+    .engage-bullet svg { width: 14px; height: 14px; stroke: #10B981; stroke-width: 3; fill: none; flex-shrink: 0; }
+
+    /* Onboarding Timeline to Fill Center/Bottom Space */
+    .timeline-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .onboarding-timeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-bottom: 24px;
+    }
+    .timeline-step {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: relative;
+    }
+    .timeline-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 14px;
+      right: -10px;
+      width: 20px;
+      height: 2px;
+      background: #CBD5E1;
+    }
+    .step-num-badge {
+      width: 28px; height: 28px;
+      background: #E0F2FE;
+      color: #0072F4;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .timeline-step h4 { font-size: 15px; font-weight: 700; color: #0F172A; }
+    .timeline-step p { font-size: 12.5px; color: #64748B; line-height: 1.4; }
+
+    .engage-bottom-split {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 24px;
+      align-items: center;
+    }
+    .pilot-offer-banner {
+      background: #F0F9FF;
+      border: 1px solid #B9E6FE;
+      border-radius: 12px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .pilot-offer-banner svg { width: 22px; height: 22px; stroke: #0284C7; stroke-width: 2.2; fill: none; flex-shrink: 0; }
+    .pilot-offer-banner p { font-size: 14px; color: #0369A1; line-height: 1.5; }
+    .pilot-offer-banner p b { color: #0284C7; }
+
+    .contact-channels {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .contact-badge {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .contact-badge svg { width: 20px; height: 20px; stroke: #0072F4; stroke-width: 2.2; fill: none; flex-shrink: 0; }
+    .contact-badge .det-lbl { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #94A3B8; text-transform: uppercase; }
+    .contact-badge .det-val { font-size: 14.5px; font-weight: 700; color: #0F172A; }
+
+    .slide-footer-row {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid #E2E8F0;
+      padding-top: 14px;
+      flex-shrink: 0;
+    }
+    .slide-footer-row .tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      color: #94A3B8;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+<div class="stage-container" id="stage">
+
+  <!-- ============ SLIDE 1 — COVER ============ -->
+  <section class="slide active" id="slide-1">
+    <div class="slide-header">
+      <div class="brand-group">
+        <svg class="brand-logo" viewBox="0 0 40 36" fill="none">
+          <path d="M10 18C10 12 15 11 18 15.5C21 20 26 25 30 20C34 15 29 10 25 14.5C21 19 16 25 12 21C9.5 18.5 9.5 12.5 15 11" stroke="#0072F4" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>
+        <span class="brand-name">infi<b>nyty</b>.tech</span>
+      </div>
+      <div class="slide-num">01 / 06</div>
+    </div>
+    
+    <div class="cover-main">
+      <h1>Scale Data &amp; AI Delivery.<br><span>Turnkey &amp; Embedded.</span></h1>
+      <p class="cover-subtitle">We build custom enterprise-grade data engines and intelligent AI systems &mdash; or supply the veteran engineers to scale your in-house product teams. One aligned partner, both sides of the equation.</p>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 2 — SERVICES ============ -->
+  <section class="slide" id="slide-2">
+    <div class="slide-header">
+      <div class="brand-group">
+        <svg class="brand-logo" viewBox="0 0 40 36" fill="none">
+          <path d="M10 18C10 12 15 11 18 15.5C21 20 26 25 30 20C34 15 29 10 25 14.5C21 19 16 25 12 21C9.5 18.5 9.5 12.5 15 11" stroke="#0072F4" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>
+        <span class="brand-name">infi<b>nyty</b>.tech</span>
+      </div>
+      <div class="slide-num">02 / 06</div>
+    </div>
+    <div class="eyebrow">Services Matrix</div>
+    <h2 class="slide-title">Full Project Delivery &amp; Workforce Augmentation</h2>
+    <p class="slide-desc">Providing structured projects or senior embedded engineering talent across all product domains.</p>
+    
+    <div class="matrix-grid">
+      <div class="matrix-card">
+        <h3>Project Delivery (Tech We Build)</h3>
+        <div class="card-kicker">Custom software applications, data models, and analytics dashboards.</div>
+        <div class="matrix-rows">
+          <div class="matrix-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3a3 3 0 0 0-3 3v1a3 3 0 0 0-2 2.8V12a3 3 0 0 0 2 2.8V16a3 3 0 0 0 3 3"/><path d="M15 3a3 3 0 0 1 3 3v1a3 3 0 0 1 2 2.8V12a3 3 0 0 1-2 2.8V16a3 3 0 0 1-3 3"/></svg>
+            <div class="matrix-text">
+              <h4>Agentic/GenAI &amp; Elite ML</h4>
+              <p>Voice agents, multi-agent orchestrators, LLM alignment, and custom models.</p>
+            </div>
+          </div>
+          <div class="matrix-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.66 3.58 3 8 3s8-1.34 8-3V6M4 12v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"/></svg>
+            <div class="matrix-text">
+              <h4>AI-Ready Data Engineering</h4>
+              <p>Scalable storage layers, ETL pipelines, schemas, and analytics pipelines.</p>
+            </div>
+          </div>
+          <div class="matrix-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <div class="matrix-text">
+              <h4>Marketing &amp; Growth Optimization</h4>
+              <p>ROAS bid engines, multi-touch attribution, and acquisition scoring models.</p>
+            </div>
+          </div>
+          <div class="matrix-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            <div class="matrix-text">
+              <h4>Custom Software Development</h4>
+              <p>Bespoke web applications, SaaS platforms, portals, and product systems.</p>
+            </div>
+          </div>
+          <div class="matrix-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v9h9"/></svg>
+            <div class="matrix-text">
+              <h4>Dashboards &amp; Operations BI</h4>
+              <p>Custom panels, metrics platforms, and natural language analytics engines.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="matrix-card featured">
+        <h3>Workforce Augmentation (Talent We Place)</h3>
+        <div class="card-kicker">FAANG-vetted developers embedded directly into your agile sprints.</div>
+        <div class="matrix-rows">
+          <div class="matrix-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            <div class="matrix-text">
+              <h4>AI / ML Engineers &amp; Data Scientists</h4>
+              <p>Prompt engineers, agent developers, model tuners, and analytics specialists.</p>
+            </div>
+          </div>
+          <div class="matrix-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.66 3.58 3 8 3s8-1.34 8-3V6M4 12v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"/></svg>
+            <div class="matrix-text">
+              <h4>Data Engineers &amp; Database Architects</h4>
+              <p>Specialists in warehouse administration, pipelines, and schema modeling.</p>
+            </div>
+          </div>
+          <div class="matrix-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg>
+            <div class="matrix-text">
+              <h4>Full-Stack &amp; Frontend Developers</h4>
+              <p>Senior React, Node, Python, and Go engineers focused on clean codebase delivery.</p>
+            </div>
+          </div>
+          <div class="matrix-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            <div class="matrix-text">
+              <h4>Technical PMs &amp; Product Managers</h4>
+              <p>Leaders to drive product strategy, roadmap execution, and cross-functional sprints.</p>
+            </div>
+          </div>
+          <div class="matrix-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            <div class="matrix-text">
+              <h4>Growth &amp; Marketing Analysts</h4>
+              <p>Specialists in client acquisition modeling, attribution, and LTV telemetry.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 3 — DOMAINS SERVED (6 SECTORS IN 3X2 GRID) ============ -->
+  <section class="slide" id="slide-3">
+    <div class="slide-header">
+      <div class="brand-group">
+        <svg class="brand-logo" viewBox="0 0 40 36" fill="none">
+          <path d="M10 18C10 12 15 11 18 15.5C21 20 26 25 30 20C34 15 29 10 25 14.5C21 19 16 25 12 21C9.5 18.5 9.5 12.5 15 11" stroke="#0072F4" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>
+        <span class="brand-name">infi<b>nyty</b>.tech</span>
+      </div>
+      <div class="slide-num">03 / 06</div>
+    </div>
+    <div class="eyebrow">Sectors Served</div>
+    <h2 class="slide-title">Deep Domain Experience</h2>
+    <p class="slide-desc">Building tailored solutions that match precise compliance protocols and industry workflows.</p>
+
+    <div class="domains-grid-6">
+      
+      <!-- Sector 1 -->
+      <div class="domain-card-6">
+        <div class="domain-top-6">
+          <div class="domain-icon-6">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          </div>
+          <h3>E-Commerce &amp; Retail</h3>
+        </div>
+        <p>Developing multi-channel web clickstream tracking warehouses, predictive purchase funnels, and automated ROAS bid allocation engines matching online retail checkout logs.</p>
+      </div>
+
+      <!-- Sector 2 -->
+      <div class="domain-card-6">
+        <div class="domain-top-6">
+          <div class="domain-icon-6">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          </div>
+          <h3>Finance &amp; Lending</h3>
+        </div>
+        <p>Structuring multi-channel marketing attribution reporting, credit scoring propensity networks, and personal loan cross-sell engines synced across email and WhatsApp APIs.</p>
+      </div>
+
+      <!-- Sector 3 -->
+      <div class="domain-card-6">
+        <div class="domain-top-6">
+          <div class="domain-icon-6">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-5"/></svg>
+          </div>
+          <h3>Healthcare &amp; Pharma</h3>
+        </div>
+        <p>GenAI clinical trial drafting assistants that read internal study reports to automatically generate FDA-compliant regulatory protocol dossiers under strict data security models.</p>
+      </div>
+
+      <!-- Sector 4 -->
+      <div class="domain-card-6">
+        <div class="domain-top-6">
+          <div class="domain-icon-6">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </div>
+          <h3>Tech Platforms &amp; SaaS</h3>
+        </div>
+        <p>Backend API scaling, database modeling, cloud engineering architectures, and dashboard telemetry integration for reporting.</p>
+      </div>
+
+      <!-- Sector 5 -->
+      <div class="domain-card-6">
+        <div class="domain-top-6">
+          <div class="domain-icon-6">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M14.8 9A2 2 0 0 0 13 8h-2a2 2 0 0 0 0 4h2a2 2 0 0 1 0 4h-2a2 2 0 0 1-1.8-1M12 7v1m0 8v1"/></svg>
+          </div>
+          <h3>Web3 &amp; Crypto</h3>
+        </div>
+        <p>Writing smart contract telemetry pipelines, real-time token transaction indexing engines, and active wallet tokenomics visualization dashboards for crypto-financial apps.</p>
+      </div>
+
+      <!-- Sector 6 -->
+      <div class="domain-card-6">
+        <div class="domain-top-6">
+          <div class="domain-icon-6">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+          </div>
+          <h3>Automotive &amp; Mobility</h3>
+        </div>
+        <p>Deploying warm application scoring models, conversational outbound lead-calling voice agents, and dealership analytics portals to accelerate loan approval times.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 4 — LEADERSHIP & COMPARISON TABLE (EXPANDED TO 5 COMPARISONS) ============ -->
+  <section class="slide" id="slide-4">
+    <div class="slide-header">
+      <div class="brand-group">
+        <svg class="brand-logo" viewBox="0 0 40 36" fill="none">
+          <path d="M10 18C10 12 15 11 18 15.5C21 20 26 25 30 20C34 15 29 10 25 14.5C21 19 16 25 12 21C9.5 18.5 9.5 12.5 15 11" stroke="#0072F4" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>
+        <span class="brand-name">infi<b>nyty</b>.tech</span>
+      </div>
+      <div class="slide-num">04 / 06</div>
+    </div>
+    <div class="eyebrow">Engineering Heritage</div>
+    <h2 class="slide-title">Cornell Founders &amp; Our Vetting Standards</h2>
+    <p class="slide-desc">Founded by engineering leaders scaling data systems, contrasted against keyword-driven recruitment agencies.</p>
+
+    <div class="leadership-table-layout">
+      
+      <!-- Founders Panel -->
+      <div class="founders-panel">
+        <div class="founder-detail-card">
+          <div class="f-title">Cornell CS Alumnus &mdash; Co-founder</div>
+          <div class="f-name">Aayush Mahendru</div>
+          <p>16+ years scaling database functions, predictive marketing attribution models, and engineering divisions across Coinbase, LinkedIn, and FICO. Designed and deployed high-throughput data architectures handling 10M+ daily active transactions with strict zero-downtime SLAs.</p>
+        </div>
+        <div class="founder-detail-card">
+          <div class="f-title">Cornell CS Alumnus &mdash; Co-founder</div>
+          <div class="f-name">Aditi Vad</div>
+          <p>16+ years directing media systems and enterprise product rollouts at Amazon Prime Video, PayPal, eBay, and Hotstar. Supervised global product teams scaling low-latency streaming backends, payment routing gateways, and user analytics databases.</p>
+        </div>
+      </div>
+
+      <!-- Comparison Matrix Table (5 Points) -->
+      <div class="comparison-table-wrapper">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Comparison Parameter</th>
+              <th>Traditional Recruiters &amp; Agencies</th>
+              <th>Infinyty Tech Vetting Bar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="criteria">Sourcing Basis</td>
+              <td class="agency-val">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#BE123C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                Sourced via generic keyword matches on resume databases.
+              </td>
+              <td class="infinyty-val">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Sourced via targeted technical networking and CS assessments.
+              </td>
+            </tr>
+            <tr>
+              <td class="criteria">Screening Process</td>
+              <td class="agency-val">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#BE123C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                Vetted by general HR recruiters with no coding background.
+              </td>
+              <td class="infinyty-val">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                CV portfolio reviewed directly by Cornell CS co-founders.
+              </td>
+            </tr>
+            <tr>
+              <td class="criteria">Skill Baseline</td>
+              <td class="agency-val">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#BE123C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                Variable engineering quality, requiring internal screening waste.
+              </td>
+              <td class="infinyty-val">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Engineers trained to meet FAANG-level engineering standards.
+              </td>
+            </tr>
+            <tr>
+              <td class="criteria">Financial Structure</td>
+              <td class="agency-val">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#BE123C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                Heavy upfront retainer fees and long billing commitment locks.
+              </td>
+              <td class="infinyty-val">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                No upfront placement fees + 2-week risk-free pilot phase.
+              </td>
+            </tr>
+            <tr>
+              <td class="criteria">Delivery Alignment</td>
+              <td class="agency-val">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#BE123C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                Transactional staffing, resulting in low project accountability.
+              </td>
+              <td class="infinyty-val">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Full accountability for turnkey builds or deeply embedded contractors.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 5 — PROVEN CLIENT OUTCOMES (NO CONTAINER BOXES) ============ -->
+  <section class="slide" id="slide-5">
+    <div class="slide-header">
+      <div class="brand-group">
+        <svg class="brand-logo" viewBox="0 0 40 36" fill="none">
+          <path d="M10 18C10 12 15 11 18 15.5C21 20 26 25 30 20C34 15 29 10 25 14.5C21 19 16 25 12 21C9.5 18.5 9.5 12.5 15 11" stroke="#0072F4" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>
+        <span class="brand-name">infi<b>nyty</b>.tech</span>
+      </div>
+      <div class="slide-num">05 / 06</div>
+    </div>
+    <div class="eyebrow">Case Studies</div>
+    <h2 class="slide-title">Proven Client Outcomes</h2>
+    <p class="slide-desc">Real-world results delivered at scale. All key outcomes displayed directly below.</p>
+
+    <div class="outcomes-noboxes-grid">
+      
+      <!-- Project 1 -->
+      <div class="outcome-flat-card">
+        <div class="outcome-flat-header">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <h3>Clinical Trial Co-Pilot &mdash; Healthcare Client</h3>
+        </div>
+        <div class="outcome-flat-metrics">
+          <div class="outcome-flat-metric-item">
+            <span class="outcome-flat-val">16w → 2w</span>
+            <span class="outcome-flat-lbl">Drafting Speed</span>
+          </div>
+          <div class="outcome-flat-metric-item">
+            <span class="outcome-flat-val">95%</span>
+            <span class="outcome-flat-lbl">Automation</span>
+          </div>
+          <div class="outcome-flat-metric-item">
+            <span class="outcome-flat-val">FDA Compliant</span>
+            <span class="outcome-flat-lbl">Dossier Quality</span>
+          </div>
+        </div>
+        <p class="outcome-flat-body">Developed a Generative AI clinical dossier writer for a pharmaceutical client. The system ingests clinical study logs and research spreadsheets to auto-generate structured, audit-ready study protocol documents. Designed to operate within a secure, encrypted framework ensuring absolute HIPAA data isolation.</p>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="outcome-flat-card">
+        <div class="outcome-flat-header">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><line x1="16" y1="8" x2="20" y2="8"/><line x1="16" y1="12" x2="23" y2="12"/><circle cx="5" cy="20" r="2"/><circle cx="12" cy="20" r="2"/></svg>
+          <h3>Conversational AI Calling Agent &mdash; Auto Lender</h3>
+        </div>
+        <div class="outcome-flat-metrics">
+          <div class="outcome-flat-metric-item">
+            <span class="outcome-flat-val">+18%</span>
+            <span class="outcome-flat-lbl">Dealership Rev</span>
+          </div>
+          <div class="outcome-flat-metric-item">
+            <span class="outcome-flat-val">-40%</span>
+            <span class="outcome-flat-lbl">Manual Calling</span>
+          </div>
+          <div class="outcome-flat-metric-item">
+            <span class="outcome-flat-val">30s</span>
+            <span class="outcome-flat-lbl">Action Time</span>
+          </div>
+        </div>
+        <p class="outcome-flat-body">Built a customized voice and text scoring agent for automotive dealerships. The AI agent analyzes auto loan queries, makes outbound validation calls to warm applications within 30 seconds of submission, confirms eligibility criteria, and routes active leads directly to loan executives.</p>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="outcome-flat-card">
+        <div class="outcome-flat-header">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <h3>E-Commerce ROAS Optimization &mdash; CPG Retailer</h3>
+        </div>
+        <div class="outcome-flat-metrics">
+          <div class="outcome-flat-metric-item">
+            <span class="outcome-flat-val">1.3x</span>
+            <span class="outcome-flat-lbl">Blended ROAS</span>
+          </div>
+          <div class="outcome-flat-metric-item">
+            <span class="outcome-flat-val">-22%</span>
+            <span class="outcome-flat-lbl">Wasted Spend</span>
+          </div>
+          <div class="outcome-flat-metric-item">
+            <span class="outcome-flat-val">Real-time</span>
+            <span class="outcome-flat-lbl">Attribution</span>
+          </div>
+        </div>
+        <p class="outcome-flat-body">Deployed a multi-channel purchase attribution engine for a retail client. The pipeline maps real-time user click events directly to transactional checkout databases, running predictive optimization rules to reduce low-performing ad spend bids.</p>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="outcome-flat-card">
+        <div class="outcome-flat-header">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <h3>Technical Candidate Vetting Engine &mdash; Hiring Platform</h3>
+        </div>
+        <div class="outcome-flat-metrics">
+          <div class="outcome-flat-metric-item">
+            <span class="outcome-flat-val">&lt; 2 mins</span>
+            <span class="outcome-flat-lbl">Screening Time</span>
+          </div>
+          <div class="outcome-flat-metric-item">
+            <span class="outcome-flat-val">+40%</span>
+            <span class="outcome-flat-lbl">Volume Capacity</span>
+          </div>
+          <div class="outcome-flat-metric-item">
+            <span class="outcome-flat-val">Zero</span>
+            <span class="outcome-flat-lbl">Staff Growth</span>
+          </div>
+        </div>
+        <p class="outcome-flat-body">Created a real-time semantic screening engine that evaluates code submissions, scores engineering candidate profiles, and screens applicant skill sets with FAANG-level precision. Scaled recruitment capacity by 40% with zero HR team expansion.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 6: COMBINED ENGAGEMENT & NEXT STEPS ============ -->
+  <section class="slide" id="slide-6">
+    <div class="slide-header">
+      <div class="brand-group">
+        <svg class="brand-logo" viewBox="0 0 40 36" fill="none">
+          <path d="M10 18C10 12 15 11 18 15.5C21 20 26 25 30 20C34 15 29 10 25 14.5C21 19 16 25 12 21C9.5 18.5 9.5 12.5 15 11" stroke="#0072F4" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>
+        <span class="brand-name">infi<b>nyty</b>.tech</span>
+      </div>
+      <div class="slide-num">06 / 06</div>
+    </div>
+    <div class="eyebrow">Engagement &amp; Next Steps</div>
+    <h2 class="slide-title">Flexible Partnership Models &amp; Scopes</h2>
+    <p class="slide-desc">Flexible contracts built to fit your development budgets, timelines, and legal frameworks.</p>
+
+    <!-- Engagement models 3-column top row -->
+    <div class="engage-top-row">
+      <div class="engage-card">
+        <div class="engage-kicker">Model A</div>
+        <h3>Project Delivery</h3>
+        <p class="tier-desc">Turnkey software products, AI pipelines, and data systems owned from design to deployment.</p>
+        <div class="engage-bullets">
+          <div class="engage-bullet"><svg viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Fixed budget &amp; scope milestones</div>
+          <div class="engage-bullet"><svg viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Post-launch SLA support</div>
+        </div>
+      </div>
+
+      <div class="engage-card primary-border">
+        <div class="engage-kicker">Model B</div>
+        <h3>Team Augmentation</h3>
+        <p class="tier-desc">Embed senior contract developers, ML architects, or data scientists directly under your team management.</p>
+        <div class="engage-bullets">
+          <div class="engage-bullet"><svg viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Monthly contracts, full-time hours</div>
+          <div class="engage-bullet"><svg viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Direct Slack/Git sprint access</div>
+        </div>
+      </div>
+
+      <div class="engage-card">
+        <div class="engage-kicker">Model C</div>
+        <h3>Employer of Record</h3>
+        <p class="tier-desc">Hire and onboard full-time developers in India. We handle local payroll, office space, and EOR logistics.</p>
+        <div class="engage-bullets">
+          <div class="engage-bullet"><svg viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Total local compliance handling</div>
+          <div class="engage-bullet"><svg viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Consolidated global invoicing</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Onboarding Timeline Section Fills Space -->
+    <div class="timeline-title">Our 4-Step Onboarding Process</div>
+    <div class="onboarding-timeline">
+      <div class="timeline-step">
+        <div class="step-num-badge">01</div>
+        <h4>Scoping Call</h4>
+        <p>15-minute alignment call with technical co-founders to map timelines.</p>
+      </div>
+      <div class="timeline-step">
+        <div class="step-num-badge">02</div>
+        <h4>Talent Matching</h4>
+        <p>We supply developer CVs matching your project stack inside 72 hours.</p>
+      </div>
+      <div class="timeline-step">
+        <div class="step-num-badge">03</div>
+        <h4>Risk-Free Trial</h4>
+        <p>A 2-week active pilot run to evaluate resource synergy and velocity.</p>
+      </div>
+      <div class="timeline-step">
+        <div class="step-num-badge">04</div>
+        <h4>Full Integration</h4>
+        <p>Seamless scaling of full-time sprints or project deliverable milestones.</p>
+      </div>
+    </div>
+
+    <!-- Pilot and Call to Action combined bottom-split row -->
+    <div class="engage-bottom-split">
+      <div class="pilot-offer-banner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0284C7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+        <p><b>Free Scoping / Trial Period</b> &mdash; Run a short trial or discuss project specifications with our Cornell co-founders to review team synergy with <b>zero upfront risk</b>.</p>
+      </div>
+      
+      <div class="contact-channels">
+        <div class="contact-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0072F4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <div>
+            <div class="det-lbl">Phone / WhatsApp</div>
+            <div class="det-val">+91 99304 20065</div>
+          </div>
+        </div>
+        <div class="contact-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0072F4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="15" rx="2"/><path d="M16 2v2M8 2v2M3 10h18M3 14h18M4 18h16"/></svg>
+          <div>
+            <div class="det-lbl">Email</div>
+            <div class="det-val">contact@infinyty.tech</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer-row">
+      <div class="tag">Infinyty Tech &mdash; Data &amp; AI Delivery + Talent</div>
+      <div class="tag">06 / 06</div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Pitch.com Bottom Control Bar -->
+<div class="pitch-controls-bar">
+  <div class="pitch-nav-arrows">
+    <button class="pitch-arrow-btn" onclick="prevSlide()" aria-label="Previous Slide">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <span id="slideCounter">1 / 6</span>
+    <button class="pitch-arrow-btn" onclick="nextSlide()" aria-label="Next Slide">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+
+  <div class="pitch-progress-segments" id="progressSegments"></div>
+
+  <button class="pitch-fullscreen-btn" onclick="toggleFullscreen()" aria-label="Fullscreen Presentation">
+    <svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+  </button>
+</div>
+
+<script>
+  // Slide Management
+  const slides = document.querySelectorAll('.slide');
+  const counter = document.getElementById('slideCounter');
+  const segmentsContainer = document.getElementById('progressSegments');
+  let currentIdx = 0;
+
+  // Build segmented progress bar
+  slides.forEach((_, idx) => {
+    const seg = document.createElement('div');
+    seg.className = 'progress-segment';
+    if (idx === 0) seg.classList.add('active');
+    seg.addEventListener('click', () => goToSlide(idx));
+    segmentsContainer.appendChild(seg);
+  });
+  const segments = segmentsContainer.querySelectorAll('.progress-segment');
+
+  function updateView() {
+    slides.forEach((slide, idx) => {
+      slide.classList.remove('active');
+      if (idx === currentIdx) {
+        slide.classList.add('active');
+      }
+    });
+
+    segments.forEach((seg, idx) => {
+      seg.classList.remove('active');
+      if (idx === currentIdx) seg.classList.add('active');
+    });
+
+    counter.textContent = `${currentIdx + 1} / ${slides.length}`;
+  }
+
+  function goToSlide(idx) {
+    if (idx >= 0 && idx < slides.length) {
+      currentIdx = idx;
+      updateView();
+    }
+  }
+
+  // Keyboard controls
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+      e.preventDefault();
+      nextSlide();
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      prevSlide();
+    }
+  });
+
+  // Touch controls
+  let tStart = 0;
+  window.addEventListener('touchstart', (e) => { tStart = e.touches[0].clientX; });
+  window.addEventListener('touchend', (e) => {
+    const tEnd = e.changedTouches[0].clientX;
+    const diff = tStart - tEnd;
+    if (diff > 60) nextSlide();
+    else if (diff < -60) prevSlide();
+  });
+
+  // Fullscreen support
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(err => {
+        console.error(`Error enabling fullscreen: ${err.message}`);
+      });
+    } else {
+      document.exitFullscreen();
+    }
+  }
+
+  // Dynamic Aspect Scaling (Widescreen 16:9 Pitch.com Fit)
+  const stage = document.getElementById('stage');
+  function resizeStage() {
+    const screenW = window.innerWidth;
+    const screenH = window.innerHeight - 72; // Subtract bottom controls height
+    
+    // Scale factor to maximize stage within viewport boundaries
+    const scale = Math.min(screenW / 1920, screenH / 1080);
+    stage.style.transform = `scale(${scale})`;
+  }
+  window.addEventListener('resize', resizeStage);
+  resizeStage();
+
+  function nextSlide() {
+    if (currentIdx < slides.length - 1) {
+      currentIdx++;
+      updateView();
+    }
+  }
+
+  function prevSlide() {
+    if (currentIdx > 0) {
+      currentIdx--;
+      updateView();
+    }
+  }
+</script>
+
+</body>
+</html>

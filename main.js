@@ -1,4 +1,4 @@
-﻿// ── THEME INIT (runs before DOM paint to prevent flash) ──
+// ── THEME INIT (runs before DOM paint to prevent flash) ──
 // This is handled in <head> inline script per page.
 // main.js only handles the toggle button.
 
@@ -32,11 +32,21 @@ if (hamburger && mobileMenu) {
 }
 
 // ── ACTIVE NAV LINK ──
-const currentUrl = window.location.href.split('?')[0].split('#')[0];
+const getCleanPath = (urlStr) => {
+  try {
+    const u = new URL(urlStr, window.location.origin);
+    let p = u.pathname.toLowerCase().replace(/\/$/, '');
+    if (p.endsWith('.html')) p = p.slice(0, -5);
+    return p === '' ? '/index' : p;
+  } catch (e) {
+    return '';
+  }
+};
+
+const currentCleanPath = getCleanPath(window.location.href);
 document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(a => {
-  // Use the absolute URL property of the anchor tag
-  let aUrl = a.href.split('?')[0].split('#')[0];
-  if (aUrl === currentUrl || (currentUrl.endsWith('/') && a.getAttribute('href') === 'index.html')) {
+  const targetCleanPath = getCleanPath(a.href);
+  if (currentCleanPath === targetCleanPath) {
     a.classList.add('active');
   }
 });
