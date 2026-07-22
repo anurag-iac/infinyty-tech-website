@@ -124,11 +124,11 @@ header.scrolled { box-shadow: 0 2px 24px var(--shadow-color); }
 .dark-mode .nav-brandmark-text b {
   color: #4FC8FF;
 }
-.nav-links { display: flex; gap: 0.15rem; list-style: none; }
+.nav-links { display: flex; gap: 0.15rem; list-style: none; flex-wrap: nowrap; }
 .nav-links a {
-  padding: .5rem 1rem; border-radius: var(--radius-sm); font-size: .875rem; font-weight: 500;
+  padding: .5rem .8rem; border-radius: var(--radius-sm); font-size: .875rem; font-weight: 500;
   color: var(--text-muted); transition: color .2s, background .2s;
-  position: relative;
+  position: relative; white-space: nowrap;
 }
 
 .nav-links a:hover { color: var(--primary); background: var(--nav-hover-bg); }
@@ -615,6 +615,10 @@ footer { background: var(--footer-bg); border-top: 1px solid var(--border); padd
 
 /* Book meeting button */
 .book-meeting-btn { display: inline-flex; }
+@media (max-width: 1024px) {
+  .nav-links a { padding: .45rem .55rem; font-size: .82rem; }
+  .book-meeting-btn { display: none; }
+}
 @media (max-width: 768px) { .book-meeting-btn { display: none; } }
 
 /* IAC logo dark mode */
@@ -734,6 +738,23 @@ footer { background: var(--footer-bg); border-top: 1px solid var(--border); padd
   .hero h1 { font-size: 2rem; }
   .section-title { font-size: 1.75rem; }
   .cta-section { border-radius: var(--radius-lg); }
+}
+
+/* ── DEMOS PAGE RESPONSIVE ── */
+@media (max-width: 960px) {
+  .demo-desktop-shell { max-width: 100%; width: 100%; }
+  .demo-desktop-shell img { width: 100%; height: auto; }
+}
+@media (max-width: 900px) {
+  /* Stack two-column demo layouts on tablet */
+  .section [style*="display: flex"][style*="gap: 4rem"] {
+    flex-direction: column;
+    gap: 2rem !important;
+    align-items: stretch !important;
+  }
+  .demo-phone-shell, .demo-desktop-shell {
+    margin: 0 auto;
+  }
 }
 
 /* ── CONTACT HERO GRID ── */
