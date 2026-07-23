@@ -103,40 +103,68 @@
     .light-theme .glow { opacity: 0.08 !important; }
     .glow-blue { background: #0072F4; } .glow-cyan { background: #4FC8FF; } .glow-purple { background: #7c3aed; }
 
-    #progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--grad); transition: width 0.4s ease; z-index: 1000; border-radius: 0 2px 2px 0; }
+    /* ── PITCH STYLE BOTTOM BAR & CONTROLS ── */
+    #pitch-bottom-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(15, 23, 42, 0.4); border-top: 1px solid var(--border);
+      backdrop-filter: blur(12px); display: flex; flex-direction: column;
+      padding: 0; transition: background-color 0.3s, border-color 0.3s;
+    }
+    .light-theme #pitch-bottom-bar {
+      background: rgba(255, 255, 255, 0.4);
+    }
+    #pitch-progress-segments {
+      display: flex; gap: 4px; padding: 0 1.5rem; margin-top: -1px;
+    }
+    .progress-segment {
+      height: 3px; flex: 1;
+      background: rgba(240,242,248,0.15); border-radius: 0 0 2px 2px;
+      transition: background-color 0.3s;
+    }
+    .light-theme .progress-segment {
+      background: rgba(15,23,42,0.1);
+    }
+    .progress-segment.active {
+      background: #ffffff;
+      height: 4px;
+    }
+    .light-theme .progress-segment.active {
+      background: var(--primary);
+    }
+    .progress-segment.completed {
+      background: rgba(240,242,248,0.4);
+    }
+    .light-theme .progress-segment.completed {
+      background: rgba(0,114,244,0.4);
+    }
     
-    #slide-counter { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 1000; }
-    .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(240,242,248,0.25); transition: all 0.3s ease; cursor: pointer; }
-    .light-theme .dot { background: rgba(15,23,42,0.15); }
-    .dot.active { background: var(--primary); width: 22px; border-radius: 3px; }
-
-    /* ── PITCH STYLE BOTTOM CONTROLS ── */
-    #deck-controls {
-      position: fixed; bottom: 1.5rem; left: 1.5rem; z-index: 1000;
+    #pitch-controls-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.6rem 1.5rem;
+    }
+    .pitch-nav-group {
       display: flex; align-items: center; gap: 0.5rem;
-      background: rgba(255,255,255,0.06); border: 1px solid var(--border);
-      padding: 0.35rem 0.75rem; border-radius: 99px;
-      backdrop-filter: blur(8px); transition: background 0.3s, border-color 0.3s;
     }
-    .light-theme #deck-controls {
-      background: rgba(0,0,0,0.02);
-    }
-    #deck-controls button {
-      width: 28px; height: 28px; border-radius: 50%;
+    .pitch-nav-group button {
+      width: 28px; height: 28px; border-radius: 6px;
       display: flex; align-items: center; justify-content: center;
       color: var(--text); cursor: pointer; transition: background 0.2s, color 0.2s;
       background: none; border: none; outline: none;
     }
-    #deck-controls button:hover {
+    .pitch-nav-group button:hover {
       background: rgba(0,114,244,0.15); color: var(--primary);
     }
-    #deck-controls button svg {
+    .pitch-nav-group button svg {
       width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.5;
     }
     #slide-num {
       font-family: 'Space Grotesk', sans-serif;
       font-size: 0.8rem; font-weight: 700;
       color: var(--text); min-width: 50px; text-align: center;
+    }
+    .pitch-brand-group {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.78rem; font-weight: 600; color: var(--muted);
     }
 
     .deck-logo { position: fixed; top: 1.25rem; left: 1.5rem; display: flex; align-items: center; gap: 10px; z-index: 1000; text-decoration: none; }
@@ -302,13 +330,11 @@
   </style>
 </head>
 <body>
-<div id="progress-bar"></div>
 <a href="index.html" class="deck-logo" target="_blank">
   <svg viewBox="0 0 40 36" fill="none"><path d="M10 18C10 12 15 11 18 15.5C21 20 26 25 30 20C34 15 29 10 25 14.5C21 19 16 25 12 21C9.5 18.5 9.5 12.5 15 11" stroke="url(#dLogoGrad)" stroke-width="2.6" stroke-linecap="round"/><defs><linearGradient id="dLogoGrad" x1="10" y1="18" x2="34" y2="18" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#0072F4"/><stop offset="100%" stop-color="#4FC8FF"/></linearGradient></defs></svg>
   <span class="deck-logo-text">infi<b>nyty</b>.tech</span>
 </a>
 
-<!-- Light/Dark Mode Switcher -->
 <button id="theme-toggle" aria-label="Toggle Theme">
   <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <circle cx="12" cy="12" r="4"></circle>
@@ -319,18 +345,25 @@
   </svg>
 </button>
 
-<!-- Bottom Pitch-style Controls -->
-<div id="deck-controls">
-  <button id="nav-prev" aria-label="Previous slide">
-    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-  </button>
-  <span id="slide-num">1 / 11</span>
-  <button id="nav-next" aria-label="Next slide">
-    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-  </button>
+<!-- Sleek Bottom Bar matching Pitch.com -->
+<div id="pitch-bottom-bar">
+  <div id="pitch-progress-segments"></div>
+  <div id="pitch-controls-row">
+    <div class="pitch-nav-group">
+      <button id="nav-prev" aria-label="Previous Slide">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <span id="slide-num">1 / 11</span>
+      <button id="nav-next" aria-label="Next Slide">
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+    <div class="pitch-brand-group">
+      <span>infinyty.tech</span>
+    </div>
+  </div>
 </div>
 
-<div id="slide-counter"></div>
 <div id="key-hint">← → Arrow keys to navigate</div>
 
 <!-- SLIDE 1: COVER -->
@@ -654,18 +687,28 @@
 
 <script>
   const slides = document.querySelectorAll('.slide');
-  const counter = document.getElementById('slide-counter');
-  const progressBar = document.getElementById('progress-bar');
+  const segmentsContainer = document.getElementById('pitch-progress-segments');
   let current = 0;
   const total = slides.length;
+
+  // Build Pitch segmented progress bar dynamically
   slides.forEach((_, i) => {
-    const dot = document.createElement('div');
-    dot.className = 'dot' + (i === 0 ? ' active' : '');
-    dot.addEventListener('click', () => goTo(i));
-    counter.appendChild(dot);
+    const seg = document.createElement('div');
+    seg.className = 'progress-segment' + (i === 0 ? ' active' : '');
+    seg.addEventListener('click', () => goTo(i));
+    segmentsContainer.appendChild(seg);
   });
-  function updateDots() { document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current)); }
-  function updateProgress() { progressBar.style.width = ((current + 1) / total * 100) + '%'; }
+
+  function updateProgress() {
+    document.querySelectorAll('.progress-segment').forEach((seg, i) => {
+      seg.className = 'progress-segment';
+      if (i === current) {
+        seg.classList.add('active');
+      } else if (i < current) {
+        seg.classList.add('completed');
+      }
+    });
+  }
   
   function goTo(index) {
     if (index < 0 || index >= total) return;
@@ -676,7 +719,6 @@
     }, 600);
     current = index;
     slides[current].classList.add('active');
-    updateDots();
     updateProgress();
     document.getElementById('slide-num').textContent = (current + 1) + ' / ' + total;
   }
