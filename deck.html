@@ -217,6 +217,15 @@
       display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
     }
     .why-num { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 800; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; flex-shrink: 0; padding-top: 2px; }
+    .why-icon {
+      width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+      background: rgba(0,114,244,0.12); border-radius: 10px; color: var(--accent); flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .light-theme .why-icon {
+      color: var(--primary); background: rgba(0,114,244,0.06);
+    }
+    .why-icon svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
     .why-card h4 { font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; font-weight: 700; margin-bottom: 0.35rem; color: var(--text); }
     
     .cta-box { background: rgba(0,114,244,0.08); border: 1px solid rgba(0,114,244,0.3); border-radius: 20px; padding: 2.5rem 3rem; margin-top: 2rem; max-width: 700px; width: 100%; position: relative; z-index: 1; }
@@ -279,6 +288,9 @@
 
       .stat-card, .service-card, .case-card, .team-card, .why-card, .industry-pill, .cta-box { border: 1px solid rgba(79,200,255,0.3) !important; }
       .light-theme .stat-card, .light-theme .service-card, .light-theme .case-card, .light-theme .team-card, .light-theme .why-card, .light-theme .industry-pill, .light-theme .cta-box { border: 1px solid rgba(0,114,244,0.15) !important; }
+      
+      .why-icon { color: #4FC8FF !important; background: rgba(0,114,244,0.12) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .light-theme .why-icon { color: #0072F4 !important; background: rgba(0,114,244,0.06) !important; }
 
       .service-grid, .case-grid { gap: 0.65rem !important; }
       .service-card, .case-card { padding: 1rem !important; }
@@ -586,21 +598,27 @@
         </div>
       </div>
       <div class="why-card">
-        <div class="why-num">&#127919;</div>
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
         <div>
           <h4>Outcome-Focused</h4>
           <p>We measure success in business impact — not lines of code. Every deliverable is tied directly to a key metric that matters to your stakeholders.</p>
         </div>
       </div>
       <div class="why-card">
-        <div class="why-num">&#9889;</div>
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
         <div>
           <h4>Speed Without Compromise</h4>
           <p>From definition to working prototypes — our lean engineering team ensures direct communication and rapid execution cycles compared to big firms.</p>
         </div>
       </div>
       <div class="why-card">
-        <div class="why-num">&#127959;&#65039;</div>
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        </div>
         <div>
           <h4>Full-Stack Capability</h4>
           <p>From raw data pipelines to polished user-facing AI applications — we run as one unified team, eliminating vendor overlap and communication gaps.</p>
