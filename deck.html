@@ -88,16 +88,7 @@
     .slide-11 { background: radial-gradient(ellipse at 60% 50%, #041b50 0%, var(--dark) 70%); }
     .light-theme .slide-11 { background: radial-gradient(ellipse at 60% 50%, #e0f2fe 0%, var(--dark) 70%) !important; }
 
-    .slide::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(0,114,244,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,114,244,0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
-      pointer-events: none;
-    }
+
 
     .glow { position: absolute; border-radius: 50%; filter: blur(120px); pointer-events: none; opacity: 0.35; transition: opacity 0.3s; }
     .light-theme .glow { opacity: 0.08 !important; }
